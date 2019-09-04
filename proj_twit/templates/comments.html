@@ -1,0 +1,62 @@
+{% if user.is_authenticated %}
+    <div style="overflow: hidden">
+<div style="float: left">
+        <table border="1">
+            <tr>
+                <td style="word-break: break-word; width: 590px">
+                    {{ user }} posted: {{ post.content }}<br>
+                </td>
+                <td style="width: 13%">Likes: {{ post.rating }}</td>
+            </tr>
+        </table>
+
+
+        <table border="1">
+            <td style="width: 500px">COMMENT</td>
+            <td>AUTHOR</td>
+            <td style="width: 15px">ADDED</td>
+            {% for comment in comments %}
+                <tr>
+                <td style="word-break: break-word">{{ comment.content }}</td>
+                <td>{{ comment.user }}</td>
+                <td>{{ comment.creation_date }}</td>
+            {% endfor %}
+            </tr>
+        </table>
+            <form action="/comments/{{ post.id }}" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Comment">
+            </form>
+</div>
+
+<div style="float: left">
+        <form action="/comments/{{ post.id }}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="I like it" name="like" title="Don't overuse me">
+            <input type="submit" value="I don't like it" name="unlike" title="Don't overuse me">
+        </form>
+
+
+
+</div>
+
+
+
+{% else %}
+    If you want to read something, log in.
+{% endif %}
+<div style="float: right">
+
+    <a href="/">Main page</a>
+    {% if not user.is_authenticated %}
+        <a href="/register/" class="button" name="register">Register</a>
+        {% block login %}
+            <a href="/login/" class="button" name="login">Log in</a>
+        {% endblock %}
+    {% endif %}
+    {% if user.is_authenticated %}
+        <a href="/messages/">Messages</a>
+        <a href="/logout/">Logout</a>
+    {% endif %}
+</div>    </div>

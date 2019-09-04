@@ -1,0 +1,17 @@
+
+<div style="float: right">
+
+
+    <a href="/">Main page</a>
+
+
+</div>
+{% if user.is_authenticated %}
+<form method="post">
+    {% csrf_token %}
+    {{ user }}
+    <input type="submit" value="Wyloguj">
+</form>
+    {% else %}
+    You are not logged in. Leave this page now!
+{% endif %}

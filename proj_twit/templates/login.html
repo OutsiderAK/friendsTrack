@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% block posts %}
+{% endblock %}
+    {% block postss %}
+{% if messages %}
+{% for message in messages %}
+<div style="float: left;" class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+<br>
+    {% block trail %}
+
+    {% endblock %}
+    <div style="float: left">
+    <form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+        {% block main %}
+    <input type="submit" value="Get me in">
+            {% endblock %}
+    </form>
+    </div>
+    {% block login %}{% endblock %}
+
+    <div style="float: right">
+    </div>
+{% endblock %}
+</body>
+</html>

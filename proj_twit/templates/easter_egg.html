@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1><b>wiem że jakbym robił modelFormem to zaoszczędziłbym pracy xd</b></h1>
+<h1 style="color: ivory"><b>NIENAWIDZĘ BAWIĆ SIĘ DIVAMI I CSS'EM</b><br>
+CO WIDAĆ</h1>
+<div style="float: right;">
+    <a href="/">Main page</a>
+    {% if not user.is_authenticated %}
+        <a href="/register/" class="button" name="register">Register</a>
+        {% block login %}
+            <a href="/login/" class="button" name="login">Log in</a>
+        {% endblock %}
+    {% endif %}
+    {% if user.is_authenticated %}
+        <a href="/logout/">Logout</a>
+    {% endif %}
+</div>
+</body>
+</html>
