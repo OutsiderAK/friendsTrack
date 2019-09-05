@@ -33,3 +33,5 @@ class Message(models.Model):
     sender = models.ForeignKey(User, related_name="sender", on_delete=models.CASCADE)
     recipient = models.ForeignKey(User, related_name="recipient", on_delete=models.CASCADE)
 
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ('sender', 'recipient', 'content', 'sent_on')
