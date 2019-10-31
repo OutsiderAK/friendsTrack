@@ -9,13 +9,6 @@ from django.contrib import messages
 
 # Create your views here.
 
-TimeoutScript = '''<script>
-    function redirect(){
-       window.location.href = "/login/";
-    }
-    setTimeout(redirect, 5000);
-</script>'''
-
 
 class RenderMainPage(View):
 
@@ -65,6 +58,7 @@ class LogoutUser(View):
         return HttpResponseRedirect('/login/')
 
 
+
 class RegisterUser(View):
 
     def get(self, request):
@@ -82,16 +76,16 @@ class RegisterUser(View):
             last_name = form.cleaned_data['last_name']
             user = authenticate(username=username, password=password)
             if user is not None:
-                messages.success(request, 'Taki użytkownik już istnieje')
+                messages.success(request, 'User already exists')
                 return HttpResponseRedirect('/register/')
             else:
                 if password != repassword:
-                    messages.success(request, 'Hasła nie są takie same')
+                    messages.success(request, 'Passwords do not match')
                     return HttpResponseRedirect('/register/')
                 else:
                     try:
                         xd = User.objects.get(username=username)
-                        messages.success(request, 'Taki użytkownik już istnieje')
+                        messages.success(request, 'User already exists')
                         return HttpResponseRedirect('/register/')
                     except User.DoesNotExist:
                         p = User.objects.create(username=username, email=email, password=password,
@@ -101,7 +95,7 @@ class RegisterUser(View):
                         log_after_reg = authenticate(username=username, password=password)
                         login(request, log_after_reg)
                         return HttpResponseRedirect('/')
-        messages.success(request, 'Coś poszło nie tak')
+        messages.success(request, 'Something has gone wrong')
         return HttpResponseRedirect('/register/')
 
 
@@ -137,13 +131,15 @@ class RenderComments(View):
             return HttpResponseRedirect(f'/comments/{post.id}')
 
 
+# render messages
 class RenderMessages(View):
 
     def get(self, request):
         form = tf.MessageForm()
         user = request.user
         if not user.is_anonymous:
-            all_msg = Message.objects.exclude(sender=user).order_by('-sent_on')
+            # only messages adressed to user
+            all_msg = Message.objects.filter(recipient=user).order_by('-sent_on')
             return render(request, 'messages.html', {'form': form,
                                                      'msg': all_msg})
         else:

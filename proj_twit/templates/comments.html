@@ -4,7 +4,7 @@
         <table border="1">
             <tr>
                 <td style="word-break: break-word; width: 590px">
-                    {{ user }} posted: {{ post.content }}<br>
+                    {{ post.user }} posted: {{ post.content }}<br>
                 </td>
                 <td style="width: 13%">Likes: {{ post.rating }}</td>
             </tr>
@@ -47,7 +47,9 @@
     If you want to read something, log in.
 {% endif %}
 <div style="float: right">
-
+{% if user.is_authenticated %}
+        Logged as: {{ user }}
+{% endif %}
     <a href="/">Main page</a>
     {% if not user.is_authenticated %}
         <a href="/register/" class="button" name="register">Register</a>

@@ -4,7 +4,7 @@ from proj_twit.models import User
 
 
 class LoginForm(forms.Form):
-    login = forms.CharField(label='Your everlasting')
+    login = forms.CharField(label='Your login')
     password = forms.CharField(widget=forms.PasswordInput(), label='Your password')
 
 
@@ -13,7 +13,7 @@ class AddPostForm(forms.Form):
         widget=forms.Textarea(
             attrs={'style': 'overflow: hidden; vertical-align: top;' 'resize: none;', 'rows': 5,
                    'placeholder': 'Max 200 characters'}),
-        label='Message to trackers', max_length=200)
+        label='Message to users', max_length=200)
 
 
 class RegisterUserForm(forms.Form):

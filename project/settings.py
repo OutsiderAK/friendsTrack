@@ -81,7 +81,7 @@ DATABASES = {
         'NAME': 'twitter',
         'ENGINE': 'django.db.backends.postgresql',
         'USER': 'postgres',
-        'PASSWORD': 'coderslab',
+        'PASSWORD': 'kmwtwak',
     }
 }
 

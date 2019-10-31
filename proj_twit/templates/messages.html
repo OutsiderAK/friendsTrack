@@ -20,6 +20,9 @@
 {% endif %}
 
 <div style="float: right;">
+{% if user.is_authenticated %}
+        Logged as: {{ user }}
+{% endif %}
     <a href="/">Main page</a>
     {% if not user.is_authenticated %}
         <a href="/register/" class="button" name="register">Register</a>
